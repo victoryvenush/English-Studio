@@ -1,0 +1,9 @@
+import { ArrowRight, BookOpen, LockKeyhole, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { DATA_NOTICE, Logo } from '../components/Shared';
+
+export function Welcome({ onStart }: { onStart: (name: string) => void }) {
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  return <div className="welcome-page"><div className="welcome-left"><header className="welcome-header"><Logo /><span>YOUR LEARNING SPACE</span></header><main className="welcome-main page-enter"><div className="welcome-kicker"><Sparkles size={15} /> A LITTLE PROGRESS EVERY DAY</div><h1>English Studio<span>.</span></h1><h2>Your next level starts here.</h2><p className="welcome-description">Master English, one challenge at a time.</p><form className="welcome-form" onSubmit={(event) => { event.preventDefault(); const trimmed = name.trim(); if (!trimmed || trimmed.length > 40) { setError('Please enter a display name between 1 and 40 characters.'); return; } setError(''); onStart(trimmed); }}><label className="field-label" htmlFor="welcome-name">WHAT SHOULD WE CALL YOU?</label><div className="welcome-input-wrap"><BookOpen size={19} /><input id="welcome-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your first name or nickname" autoComplete="nickname" maxLength={40} /></div>{error && <p className="field-error" role="alert">{error}</p>}<button className="button button-primary welcome-submit" type="submit">Start Learning <ArrowRight size={18} /></button></form><div className="welcome-note"><LockKeyhole size={17} /><p>{DATA_NOTICE}<br /><br />After you start learning, download a JSON backup in Settings. Import it there if you ever need to restore your data.</p></div></main><footer className="welcome-footer"><span>A little space for big possibilities.</span><strong>Developed by Venush</strong></footer></div></div>;
+}
